@@ -99,8 +99,8 @@ https://vigil.up.railway.app/
 
 1. Clone the repo
 ```bash
-git clone https://github.com/shekh-2810/vigil.git
-cd vigil
+git clone https://github.com/shekh-2810/VIGIL.git
+cd VIGIL
 ```
 2.Load the Chrome extension
 -Go to chrome://extensions
@@ -116,8 +116,8 @@ Use this if you want to modify or debug the backend.
 
 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/vigil.git
-cd vigil
+git clone https://github.com/shekh-2810/VIGIL.git
+cd VIGIL
 ```
 2. Start the backend
 ```
