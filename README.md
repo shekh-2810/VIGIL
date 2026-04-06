@@ -6,16 +6,16 @@
 
 ---
 
-## 📸 Preview
+##  Preview
 
-![Vigil Extension Popup](assets/screenshot1.png)
+![Vigil Extension Popup](assets/Screenshot1.png)              ![Vigil Extension Popup](assets/Screenshot2.png)
 
 
-![Vigil Extension Popup](assets/screenshot2.png)
+
 
 ---
 
-## 🧠 How It Works
+##  How It Works
 
 ```
 Browser Tab
@@ -86,7 +86,7 @@ vigil/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 🌐 Option 1: Use Hosted Backend (Recommended)
 
@@ -108,7 +108,7 @@ cd vigil
 -Click Load unpacked → select the extension/ folder
 -Pin the Vigil icon
 
-✅ Done — extension works instantly without running backend
+ Done — extension works instantly without running backend
 
 ### 🛠️ Option 2: Run Backend Locally (Development)
 
@@ -157,7 +157,7 @@ Local backend is faster and no rate limits
 Do not run both simultaneously unless switching endpoints
 ---
 
-## 🔬 ML Model Details
+##  ML Model Details
 
 | Property | Value |
 |---|---|
@@ -208,7 +208,7 @@ Importance is spread across 10 features — no single feature dominates. This is
 | 80 – 100 | 🚨 Critical | Immediate block + full-screen modal |
 
 ---
-## 🤔 Design Decisions & Why
+##  Design Decisions & Why
 
 ### Why XGBoost instead of LLMs or APIs?
 
@@ -238,7 +238,7 @@ Synthetic generation allowed:
 
 ---
 
-## 🐛 Problems Faced During Development
+##  Problems Faced During Development
 
 ### 1. Chrome blocked localhost requests
 
