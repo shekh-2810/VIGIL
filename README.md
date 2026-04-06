@@ -8,7 +8,7 @@
 
 ##  Preview
 
-![Vigil Extension Popup](assets/Screenshot1.png)              ![Vigil Extension Popup](assets/Screenshot2.png)
+![Vigil Extension Popup](assets/Screenshot1.png)                  ![Vigil Extension Popup](assets/Screenshot2.png)
 
 
 
