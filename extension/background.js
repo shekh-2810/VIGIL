@@ -7,7 +7,7 @@
  * Access rules. Service workers are exempt from that restriction.
  */
 
-const BACKEND_URL = 'http://127.0.0.1:8000';
+const BACKEND = "https://vigil.up.railway.app";
 
 // Set default badge on install
 chrome.runtime.onInstalled.addListener(() => {
