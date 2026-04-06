@@ -99,7 +99,7 @@ https://vigil.up.railway.app/
 
 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/vigil.git
+git clone https://github.com/shekh-2810/vigil.git
 cd vigil
 ```
 2.Load the Chrome extension
