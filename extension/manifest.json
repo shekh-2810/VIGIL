@@ -12,7 +12,7 @@
   ],
 
   "host_permissions": [
-    "<all_urls>",
+  "https://vigil.up.railway.app/*",
     "http://127.0.0.1:8000/*",
     "http://localhost:8000/*"
   ],
