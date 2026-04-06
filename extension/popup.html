@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vigil — Phishing Protection</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 2L3 7v6c0 5 4 9.3 9 10.5C17 22.3 21 18 21 13V7z"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Vigil</h1>
+      <p>Phishing protection active</p>
+    </div>
+    <div class="live-dot" id="live-dot" aria-label="Status indicator"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" role="tab" aria-selected="true"  data-tab="current">Current site</button>
+    <button class="tab"        role="tab" aria-selected="false" data-tab="settings">Settings</button>
+    <button class="tab"        role="tab" aria-selected="false" data-tab="log">History</button>
+  </nav>
+
+  <!-- View: Current -->
+  <section id="view-current" class="view active" role="tabpanel">
+
+    <div class="status-bar state-loading" id="status-bar" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-label" id="status-label">Analyzing…</span>
+      <span class="score-pill" id="score-pill">—</span>
+    </div>
+
+    <div class="url-row">
+      <svg class="url-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+      </svg>
+      <span class="url-text" id="url-display">—</span>
+      <span class="ssl-badge" id="ssl-badge">Checking…</span>
+    </div>
+
+    <div class="score-meter">
+      <div class="meter-header">
+        <span class="section-label">Threat level</span>
+        <span class="meter-val" id="meter-val">—</span>
+      </div>
+      <div class="meter-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="meter-fill" id="meter-fill"></div>
+      </div>
+    </div>
+
+    <div class="signals">
+      <p class="section-label">Signal breakdown</p>
+      <div class="signal-row">
+        <span class="signal-icon" id="sig-https-icon"    aria-hidden="true"></span>
+        <span class="signal-label">HTTPS</span>
+        <span class="signal-value" id="sig-https">—</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-icon" id="sig-brand-icon"    aria-hidden="true"></span>
+        <span class="signal-label">Brand / homoglyph</span>
+        <span class="signal-value" id="sig-brand">—</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-icon" id="sig-form-icon"     aria-hidden="true"></span>
+        <span class="signal-label">Login form</span>
+        <span class="signal-value" id="sig-form">—</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-icon" id="sig-keywords-icon" aria-hidden="true"></span>
+        <span class="signal-label">Suspicious keywords</span>
+        <span class="signal-value" id="sig-keywords">—</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-icon" id="sig-tld-icon"      aria-hidden="true"></span>
+        <span class="signal-label">Domain / TLD</span>
+        <span class="signal-value" id="sig-tld">—</span>
+      </div>
+    </div>
+
+    <div class="flags-section hidden" id="flags-section" aria-live="polite">
+      <p class="section-label">Why this is flagged</p>
+      <div id="flags-list"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary hidden" id="btn-main">✓ Site looks safe</button>
+      <button class="btn btn-rescan"         id="btn-rescan">↻ Rescan</button>
+    </div>
+
+  </section>
+
+  <!-- View: Settings -->
+  <section id="view-settings" class="view" role="tabpanel">
+    <div class="toggle-row">
+      <label class="toggle-label" for="tog-protection">Real-time protection</label>
+      <label class="toggle"><input type="checkbox" id="tog-protection" checked /><span class="slider" aria-hidden="true"></span></label>
+    </div>
+    <div class="toggle-row">
+      <label class="toggle-label" for="tog-intercept">Pre-submit interception</label>
+      <label class="toggle"><input type="checkbox" id="tog-intercept" checked /><span class="slider" aria-hidden="true"></span></label>
+    </div>
+    <div class="toggle-row">
+      <label class="toggle-label" for="tog-dom">DOM form scanning</label>
+      <label class="toggle"><input type="checkbox" id="tog-dom" checked /><span class="slider" aria-hidden="true"></span></label>
+    </div>
+    <div class="toggle-row">
+      <label class="toggle-label" for="tog-sound">Alert sound</label>
+      <label class="toggle"><input type="checkbox" id="tog-sound" /><span class="slider" aria-hidden="true"></span></label>
+    </div>
+    <div class="toggle-row">
+      <label class="toggle-label" for="tog-reports">Anonymous reports</label>
+      <label class="toggle"><input type="checkbox" id="tog-reports" checked /><span class="slider" aria-hidden="true"></span></label>
+    </div>
+    <div class="sens-row">
+      <p class="section-label">Sensitivity level</p>
+      <input type="range" id="sens-slider" min="1" max="3" value="2" aria-label="Detection sensitivity" />
+      <div class="sens-labels">
+        <span>Relaxed</span>
+        <span class="sens-active" id="sens-label">Balanced</span>
+        <span>Strict</span>
+      </div>
+    </div>
+    <p class="version-label">Vigil v1.0.0 · ZeroDay Legends · VIT Bhopal</p>
+  </section>
+
+  <!-- View: History -->
+  <section id="view-log" class="view" role="tabpanel">
+    <div id="history-list">
+      <div class="empty-state">
+        <p>History appears as you browse.</p>
+        <small>Stored locally — never uploaded.</small>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <span class="footer-status" id="footer-status">Waiting for analysis…</span>
+    <span class="footer-ms"     id="footer-ms"></span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

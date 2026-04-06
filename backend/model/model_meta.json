@@ -1,0 +1,109 @@
+{
+  "feature_names": [
+    "url_length",
+    "domain_length",
+    "path_length",
+    "num_subdomains",
+    "num_hyphens",
+    "num_digits_in_domain",
+    "num_special_chars",
+    "num_dots",
+    "num_at_symbols",
+    "num_redirects",
+    "has_port",
+    "uses_https",
+    "uses_ip_address",
+    "has_hex_encoding",
+    "url_entropy",
+    "domain_entropy",
+    "suspicious_keyword_count",
+    "has_login_keyword",
+    "has_secure_keyword",
+    "has_update_keyword",
+    "has_homoglyph",
+    "brand_in_subdomain",
+    "brand_in_path",
+    "legitimate_brand_in_domain",
+    "unusual_tld",
+    "tld_length",
+    "path_depth",
+    "has_query_string",
+    "query_length",
+    "has_fragment",
+    "double_slash_in_path",
+    "is_url_shortener",
+    "ssl_valid",
+    "ssl_days_remaining",
+    "ssl_age_days",
+    "ssl_is_new",
+    "has_password_field",
+    "has_login_form",
+    "num_inputs",
+    "num_hidden_inputs",
+    "form_action_mismatch",
+    "has_external_form_action",
+    "favicon_mismatch",
+    "has_copyright",
+    "num_iframes",
+    "has_obfuscated_js",
+    "num_external_links",
+    "link_ratio",
+    "has_right_click_disabled",
+    "has_popup"
+  ],
+  "n_features": 50,
+  "precision": 0.9987,
+  "recall": 0.9947,
+  "f1": 0.9967,
+  "auc_roc": 1.0,
+  "cv_f1_mean": 0.9978,
+  "cv_f1_std": 0.0006,
+  "best_iteration": 492,
+  "top_features": [
+    [
+      "num_hidden_inputs",
+      0.1083
+    ],
+    [
+      "unusual_tld",
+      0.1072
+    ],
+    [
+      "has_obfuscated_js",
+      0.0873
+    ],
+    [
+      "suspicious_keyword_count",
+      0.0821
+    ],
+    [
+      "form_action_mismatch",
+      0.0817
+    ],
+    [
+      "uses_https",
+      0.076
+    ],
+    [
+      "query_length",
+      0.0736
+    ],
+    [
+      "is_url_shortener",
+      0.0472
+    ],
+    [
+      "has_right_click_disabled",
+      0.0429
+    ],
+    [
+      "has_external_form_action",
+      0.0429
+    ]
+  ],
+  "thresholds": {
+    "safe": 0.3,
+    "suspicious": 0.6,
+    "dangerous": 0.8
+  }
+}
