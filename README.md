@@ -103,10 +103,14 @@ git clone https://github.com/shekh-2810/VIGIL.git
 cd VIGIL
 ```
 2.Load the Chrome extension
--Go to chrome://extensions
--Enable Developer mode
--Click Load unpacked → select the extension/ folder
--Pin the Vigil icon
+
+- Go to chrome://extensions
+
+- Enable Developer mode
+
+- Click Load unpacked → select the extension/ folder
+
+- Pin the Vigil icon
 
  Done — extension works instantly without running backend
 
