@@ -7,7 +7,8 @@
  * Access rules. Service workers are exempt from that restriction.
  */
 
-const BACKEND = "https://vigil.up.railway.app";
+const BACKEND = localStorage.getItem("VIGIL_BACKEND") 
+  || "https://vigil.up.railway.app";
 
 // Set default badge on install
 chrome.runtime.onInstalled.addListener(() => {
