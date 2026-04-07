@@ -93,7 +93,7 @@ vigil/
 No setup required — backend is already deployed.
 
 The extension connects to:
-https://vigil.up.railway.app/
+https://vigil-production-4c62.up.railway.app
 
 #### Steps:
 
@@ -152,13 +152,35 @@ Reload extension
 ```
 🔁 Switch back to hosted backend
 ```
-localStorage.setItem("VIGIL_BACKEND", "https://vigil.up.railway.app");
+localStorage.setItem("VIGIL_BACKEND", "https://vigil-production-4c62.up.railway.app");
 ```
-⚠️ Notes:
+### ⚠️ Notes:
 
-Hosted backend may have cold start delay (2–5s)
+Hosted backend may have cold start delay (2–5s). Refesh the site after adding extension.
+
 Local backend is faster and no rate limits
+
 Do not run both simultaneously unless switching endpoints
+
+---
+
+## Current Limitations & Ongoing Improvements
+
+Vigil is actively evolving. The following edge cases have been identified and are being addressed:
+
+- Restricted environments (e.g., Chrome Web Store pages)
+  Some browser-protected pages block extension scripts, which may surface as a "backend offline" state.
+  This is a browser security constraint, not a system failure.
+- False positives on heavily obfuscated websites
+  Large production sites often use advanced JavaScript obfuscation for performance and IP protection.
+  This can resemble phishing behavior and trigger alerts.
+- Form-heavy platforms (e.g., search engines)
+  Sites like Google use multiple hidden input fields for legitimate functionality,
+   which can be misclassified as suspicious signals.
+- Large-scale domains with distributed assets
+  Enterprises often serve assets (like favicons) from separate domains or CDNs,
+  which may be flagged as domain mismatches.
+
 ---
 
 ##  ML Model Details
@@ -214,15 +236,51 @@ Importance is spread across 10 features — no single feature dominates. This is
 ---
 ##  Design Decisions & Why
 
-### Why XGBoost instead of LLMs or APIs?
+###  Why Not LangChain or Pretrained Models?
 
-- **LLMs (GPT, etc.)** were rejected due to high latency (500ms–3s), cost per request, and privacy risks — sending every visited URL to external services is unacceptable for a security tool.
-- **Reputation APIs (VirusTotal, Google Safe Browsing)** only detect *known* threats. Zero-day phishing pages easily bypass them.
-- **XGBoost on structured features** provides:
-  - ~2ms inference
-  - no third-party dependency
-  - strong zero-day detection
-  - full explainability (clear signal-based reasoning)
+####  Why not LangChain / LLM-based pipelines?
+
+LangChain and LLM-based approaches were intentionally avoided for this problem.
+
+- **Latency** — LLM calls typically take 500ms–3s per request, which is too slow for real-time protection. Vigil operates in ~100–800ms end-to-end.
+- **Non-deterministic outputs** — LLMs can produce inconsistent results for the same input, which is unacceptable for a security system.
+- **Cost at scale** — Every page visit would require an API call, making the system expensive and non-scalable.
+- **Privacy concerns** — Sending every visited URL to a third-party model contradicts the goal of a security-focused tool.
+- **Overkill for structured problems** — Phishing detection is fundamentally a structured classification task, not a generative reasoning problem.
+
+**Conclusion:** LLMs are powerful, but not appropriate for low-latency, deterministic, privacy-sensitive detection systems.
+
+---
+
+#### Why not pretrained models / public datasets?
+
+Using ready-made models or datasets from the web was also avoided.
+
+- **Stale and unreliable labels** — Public phishing datasets are snapshots in time. URLs change, expire, or get repurposed, introducing hidden noise.
+- **Feature mismatch** — Most datasets provide precomputed features, not raw inputs. They lack real-time DOM signals used by Vigil.
+- **No regional context** — Existing datasets are heavily biased toward US/EU phishing patterns and miss region-specific attacks (e.g., UPI, SBI, Paytm scams).
+- **Black-box behavior** — Pretrained models often lack transparency, making it harder to explain *why* a site was flagged.
+- **Poor generalization to zero-day attacks** — Many pretrained systems rely on patterns that don’t adapt well to new phishing techniques.
+
+---
+
+#### Why a custom XGBoost pipeline?
+
+- **Fast inference (~2ms)** — suitable for real-time browser use  
+- **Deterministic and reproducible** — same input → same output  
+- **Fully explainable** — every prediction maps to clear signals  
+- **Zero external dependency** — no third-party API calls  
+- **Better zero-day detection** — learns structural patterns, not just known URLs  
+
+---
+
+###  Design Philosophy
+
+Vigil is built around a simple principle:
+
+> *Phishing detection should be fast, explainable, and privacy-preserving — not dependent on external black-box systems.*
+
+This is why a custom ML pipeline was chosen over generic frameworks or pretrained solutions.
 
 ---
 
